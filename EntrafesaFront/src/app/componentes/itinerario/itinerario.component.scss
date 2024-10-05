@@ -1,0 +1,108 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+  }
+  
+  header {
+    background-color: #f5f5f5;
+    padding: 20px 0;
+    text-align: center;
+    position: relative; /* Para permitir la línea detrás de los círculos */
+  }
+  
+  .progress-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    position: relative;
+  
+    .line {
+      position: absolute;
+      top: 9px; /* Ajusta para que la línea quede detrás de los círculos */
+      left: 10%;
+      right: 8%;
+      height: 4px;
+      background-color: #ccc;
+      z-index: 1; /* Coloca la línea detrás de los círculos */
+    }
+  
+    .step {
+      text-align: center;
+      position: relative;
+      z-index: 2; /* Coloca los círculos por delante de la línea */
+  
+      .circle {
+        width: 20px;
+        height: 20px;
+        background-color: #ccc;
+        border-radius: 50%;
+        margin: 0 auto 10px;
+      }
+  
+      &.active {
+        .circle {
+          background-color: purple;
+        }
+      }
+    }
+  }
+  
+  main {
+    display: flex;
+    justify-content: center;
+    margin: 50px 0;
+  
+    .form-container {
+      width: 90%;
+      display: flex;
+      justify-content: center;
+  
+      .form-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        gap: 20px;
+  
+        .box {
+          background-color: white;
+          padding: 27px;
+          border-radius: 8px;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+          flex-grow: 1;
+        }
+      }
+    }
+  }
+  
+  label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  select, input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+  }
+  
+  button {
+    padding: 12px 20px;
+    background-color: purple;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 100%;
+  
+    &:hover {
+      background-color: #5d0085;
+    }
+  }
+  
