@@ -1,69 +1,75 @@
-<br><br><br>
 <body>
     <div class="progress-container">
-        <div class="line"></div> <!-- Línea que conecta los círculos -->
-        <div class="step active">
-            <div class="circle"></div>
-            <div>RUTA Y FECHAS</div>
-        </div>
-        <div class="step">
-            <div class="circle"></div>
-            <div>HORARIOS</div>
-        </div>
-        <div class="step">
-            <div class="circle"></div>
-            <div>ASIENTOS</div>
-        </div>
-        <div class="step">
-            <div class="circle"></div>
-            <div>REGISTRAR PASAJEROS</div>
-        </div>
-        <div class="step">
-            <div class="circle"></div>
-            <div>PAGAR</div>
-        </div>
+      <div class="line"></div> <!-- Línea que conecta los círculos -->
+      <div class="step active">
+        <div class="circle"></div>
+        <div>RUTA Y FECHAS</div>
+      </div>
+      <div class="step">
+        <div class="circle"></div>
+        <div>HORARIOS</div>
+      </div>
+      <div class="step">
+        <div class="circle"></div>
+        <div>ASIENTOS</div>
+      </div>
+      <div class="step">
+        <div class="circle"></div>
+        <div>REGISTRAR PASAJEROS</div>
+      </div>
+      <div class="step">
+        <div class="circle"></div>
+        <div>PAGAR</div>
+      </div>
     </div>
   
     <main>
-        <div class="form-container">
-            <div class="form-row">
-                <div class="box">
-                    <label for="origen">Lugar de Origen</label>
-                    <select id="origen" name="origen">
-                        <option value="">Selecciona un origen</option>
-                        <option value="trujillo">Trujillo</option>
-                        <option value="tumbes">Tumbes</option>
-                        <option value="lima">Lima</option>
-                        <option value="cajamarca">Cajamarca</option>
-                        <option value="chimbote">Chimbote</option>
-                        <option value="tarapoto">Tarapoto</option>
-                        <option value="paijan">Paiján</option>
-                    </select>
-                </div>
-  
-                <div class="box">
-                    <label for="destino">Lugar de Destino</label>
-                    <select id="destino" name="destino">
-                        <option value="">Selecciona un destino</option>
-                        <option value="trujillo">Trujillo</option>
-                        <option value="tumbes">Tumbes</option>
-                        <option value="lima">Lima</option>
-                        <option value="cajamarca">Cajamarca</option>
-                        <option value="chimbote">Chimbote</option>
-                        <option value="tarapoto">Tarapoto</option>
-                        <option value="paijan">Paiján</option>
-                    </select>
-                </div>
-  
-                <div class="box">
-                    <label for="fecha">Fecha de ida</label>
-                    <input type="date" id="fecha" name="fecha">
-                </div>
-  
-                <div class="box">
-                    <button type="submit">Buscar</button>
-                </div>
+      <div class="form-container">
+        <form (ngSubmit)="buscar()">
+          <div class="form-row">
+            <div class="box">
+              <label for="origen">Lugar de Origen</label>
+              <select id="origen" [(ngModel)]="origen" name="origen" required>
+                <option value="">Selecciona un origen</option>
+                <option *ngFor="let lugar of ['trujillo', 'tumbes', 'lima', 'cajamarca', 'chimbote', 'tarapoto', 'paijan']" 
+                        [value]="lugar">
+                  {{ lugar | titlecase }}
+                </option>
+              </select>
             </div>
+  
+            <div class="box">
+              <label for="destino">Lugar de Destino</label>
+              <select id="destino" [(ngModel)]="destino" name="destino" required>
+                <option value="">Selecciona un destino</option>
+                <option *ngFor="let lugar of ['trujillo', 'tumbes', 'lima', 'cajamarca', 'chimbote', 'tarapoto', 'paijan']" 
+                        [value]="lugar">
+                  {{ lugar | titlecase }}
+                </option>
+              </select>
+            </div>
+  
+            <div class="box">
+              <label for="fecha">Fecha de Ida</label>
+              <input type="date" id="fecha" [(ngModel)]="fechaViaje" name="fecha" required>
+            </div>
+  
+            <div class="box">
+              <button type="submit">Buscar</button>
+            </div>
+          </div>
+        </form>
+  
+        <div *ngIf="itinerarios.length > 0" class="result-container">
+          <h3>Resultados:</h3>
+          <ul>
+            <li *ngFor="let itinerario of itinerarios">
+              {{ itinerario.origen | titlecase }} - {{ itinerario.destino | titlecase }}: 
+              {{ itinerario.fechaViaje | date: 'fullDate' }}
+            </li>
+          </ul>
         </div>
+      </div>
     </main>
-</body>
+  </body>
+  
