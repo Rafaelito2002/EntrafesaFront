@@ -1,3 +1,4 @@
+<br><br>
 <body>
     <div class="progress-container">
       <div class="line"></div> <!-- Línea que conecta los círculos -->
@@ -25,16 +26,12 @@
   
     <main>
       <div class="form-container">
-        <form (ngSubmit)="buscar()">
+        <form>
           <div class="form-row">
             <div class="box">
               <label for="origen">Lugar de Origen</label>
               <select id="origen" [(ngModel)]="origen" name="origen" required>
                 <option value="">Selecciona un origen</option>
-                <option *ngFor="let lugar of ['trujillo', 'tumbes', 'lima', 'cajamarca', 'chimbote', 'tarapoto', 'paijan']" 
-                        [value]="lugar">
-                  {{ lugar | titlecase }}
-                </option>
               </select>
             </div>
   
@@ -42,10 +39,6 @@
               <label for="destino">Lugar de Destino</label>
               <select id="destino" [(ngModel)]="destino" name="destino" required>
                 <option value="">Selecciona un destino</option>
-                <option *ngFor="let lugar of ['trujillo', 'tumbes', 'lima', 'cajamarca', 'chimbote', 'tarapoto', 'paijan']" 
-                        [value]="lugar">
-                  {{ lugar | titlecase }}
-                </option>
               </select>
             </div>
   

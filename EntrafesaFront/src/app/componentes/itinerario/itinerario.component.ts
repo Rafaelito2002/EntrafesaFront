@@ -10,15 +10,32 @@ import { itinerario } from '../../models/itinerario';
 export class ItinerarioComponent implements OnInit {
   // Variables del formulario
   itinerarios: itinerario[] = []; // Array para guardar los resultados
-  origen: string = ''; 
-  destino: string = ''; 
+  origen: string[] = [];
+  destino: string[] = [];
   fechaViaje: Date = new Date(); // Inicializa con la fecha actual
 
   constructor(private entrafesaService: EntrafesaService) {} // Inyecta el servicio
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.obtenerOrigen();
+    this.obtenerDestino();
+  }
 
-  buscar(): void {
+  obtenerOrigen(): void{
+    this.entrafesaService.getOrigen().subscribe(
+      (data) => this.origen = data,
+      (error) => console.error('Error al obtener orígenes: ', error)
+    );
+  }
+
+  obtenerDestino(): void{
+    this.entrafesaService.getDestino().subscribe(
+      (data) => this.destino = data,
+      (error) => console.error('Error al obtener destinos: ', error)
+    )
+  }
+
+  /*buscar(): void {
     if (this.origen && this.destino && this.fechaViaje) {
       // Llamada al servicio para buscar itinerarios
       this.entrafesaService
@@ -34,5 +51,5 @@ export class ItinerarioComponent implements OnInit {
     } else {
       console.warn('Todos los campos del formulario son obligatorios.');
     }
-  }
+  }*/
 }

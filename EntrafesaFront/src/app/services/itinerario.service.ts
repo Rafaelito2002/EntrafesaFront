@@ -8,6 +8,7 @@ import { itinerario } from "../models/itinerario";
 })
 export class EntrafesaService {
   private url: string = 'http://localhost:8080/api/itinerarios';
+  private url1: string = 'http://localhost:8080/api/v2/api/rutas'; 
 
   constructor(private http: HttpClient) { }
 
@@ -15,6 +16,14 @@ export class EntrafesaService {
   buscarItinerario(origen: string, destino: string, fechaViaje: Date): Observable<itinerario[]> {
     const fechaFormateada = fechaViaje.toISOString();  // Convierte  fechaVijae a  string
     return this.http.get<itinerario[]>(`${this.url}/filtrar/${origen}/${destino}/${fechaFormateada}`);
+  }
+
+  getOrigen(): Observable<string[]>{
+    return this.http.get<string[]>(`${this.url1}/origenes`);
+  }
+
+  getDestino(): Observable<string[]>{
+    return this.http.get<string[]>(`${this.url1}/destinos`); 
   }
   
 }
