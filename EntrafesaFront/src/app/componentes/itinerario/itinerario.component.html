@@ -1,68 +1,109 @@
 <br><br>
 <body>
-    <div class="progress-container">
-      <div class="line"></div> <!-- Línea que conecta los círculos -->
-      <div class="step active">
-        <div class="circle"></div>
-        <div>RUTA Y FECHAS</div>
-      </div>
-      <div class="step">
-        <div class="circle"></div>
-        <div>HORARIOS</div>
-      </div>
-      <div class="step">
-        <div class="circle"></div>
-        <div>ASIENTOS</div>
-      </div>
-      <div class="step">
-        <div class="circle"></div>
-        <div>REGISTRAR PASAJEROS</div>
-      </div>
-      <div class="step">
-        <div class="circle"></div>
-        <div>PAGAR</div>
+  <div class="progress-container">
+    <div class="line"></div> <!-- Línea que conecta los círculos -->
+    <div class="step" [ngClass]="{'active': currentStep >= 1}">
+      <div class="circle"></div>
+      <div>RUTA Y FECHAS</div>
+    </div>
+    <div class="step" [ngClass]="{'active': currentStep >= 2}">
+      <div class="circle"></div>
+      <div>HORARIOS</div>
+    </div>
+    <div class="step" [ngClass]="{'active': currentStep >= 3}">
+      <div class="circle"></div>
+      <div>ASIENTOS</div>
+    </div>
+    <div class="step" [ngClass]="{'active': currentStep >= 4}">
+      <div class="circle"></div>
+      <div>REGISTRAR PASAJEROS</div>
+    </div>
+    <div class="step" [ngClass]="{'active': currentStep >= 5}">
+      <div class="circle"></div>
+      <div>PAGAR</div>
+    </div>
+  </div>
+
+  <main *ngIf="currentStep === 1">
+    <div class="form-container">
+      <form (ngSubmit)="buscarItinerarios()">
+        <div class="form-row">
+          <div class="box">
+            <label for="origen">Lugar de Origen</label>
+            <select id="origen" [(ngModel)]="origenSeleccionado" name="origen" required>
+              <option value="">Selecciona un origen</option>
+              <option *ngFor="let orig of origen" [value]="orig">{{ orig }}</option>
+            </select>
+          </div>
+          
+          <div class="box">
+            <label for="destino">Lugar de Destino</label>
+            <select id="destino" [(ngModel)]="destinoSeleccionado" name="destino" required>
+              <option value="">Selecciona un destino</option>
+              <option *ngFor="let dest of destino" [value]="dest">{{ dest }}</option>
+            </select>
+          </div>
+          
+          <div class="box">
+            <label for="fecha">Fecha de Ida</label>
+            <input type="date" id="fecha" [(ngModel)]="fechaViajeISO" name="fecha" required>
+          </div>
+
+          <div class="box">
+            <button type="submit">Buscar</button>
+          </div>
+        </div>
+      </form>
+
+      <div *ngIf="itinerarios.length > 0" class="result-container">
+        <h3>Resultados:</h3>
+        <ul>
+          <li *ngFor="let itinerario of itinerarios">
+            {{ itinerario.origen | titlecase }} - {{ itinerario.destino | titlecase }}: 
+            {{ itinerario.fechaViaje | date: 'fullDate' }}
+          </li>
+        </ul>
       </div>
     </div>
-  
-    <main>
-      <div class="form-container">
-        <form>
-          <div class="form-row">
-            <div class="box">
-              <label for="origen">Lugar de Origen</label>
-              <select id="origen" [(ngModel)]="origen" name="origen" required>
-                <option value="">Selecciona un origen</option>
-              </select>
-            </div>
-  
-            <div class="box">
-              <label for="destino">Lugar de Destino</label>
-              <select id="destino" [(ngModel)]="destino" name="destino" required>
-                <option value="">Selecciona un destino</option>
-              </select>
-            </div>
-  
-            <div class="box">
-              <label for="fecha">Fecha de Ida</label>
-              <input type="date" id="fecha" [(ngModel)]="fechaViaje" name="fecha" required>
-            </div>
-  
-            <div class="box">
-              <button type="submit">Buscar</button>
-            </div>
-          </div>
-        </form>
-  
-        <div *ngIf="itinerarios.length > 0" class="result-container">
-          <h3>Resultados:</h3>
-          <ul>
-            <li *ngFor="let itinerario of itinerarios">
-              {{ itinerario.origen | titlecase }} - {{ itinerario.destino | titlecase }}: 
-              {{ itinerario.fechaViaje | date: 'fullDate' }}
-            </li>
-          </ul>
-        </div>
-      </div>
-    </main>
-  </body>
-  
+  </main>
+
+  <!-- Paso 2: Mostrar Itinerarios -->
+  <main *ngIf="currentStep === 2">
+    <h3>Elige el horario</h3>
+    <div *ngIf="itinerarios.length === 0">
+      <p>No se encontraron itinerarios para esta fecha.</p>
+    </div>
+    <div *ngIf="itinerarios.length > 0">
+      <table>
+        <thead>
+          <tr>
+            <th>ITINERARIO</th>
+            <th>SERVICIO</th>
+            <th>ASIENTOS</th>
+            <th>ELEGIR</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let itinerario of itinerarios">
+            <td>{{ itinerario.horaSalida }} <br> Salida → <br> {{ itinerario.horaLlegada }} <br> Llegada estimada</td>
+            <td>{{ itinerario.servicio }} - {{ itinerario.servicio }}</td>
+            <td>{{ itinerario.asientosLibres }} Libres</td>
+            <td>
+              <button (click)="elegirItinerario(itinerario)">Elegir</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+</body>
+
+
+
+
+
+
+
+
+
+

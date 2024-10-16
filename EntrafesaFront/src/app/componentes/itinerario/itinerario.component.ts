@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { EntrafesaService } from '../../services/itinerario.service';  // Verifica la ruta de importación
+import { EntrafesaService } from '../../services/itinerario.service';
 import { itinerario } from '../../models/itinerario';
 
 @Component({
@@ -8,11 +8,15 @@ import { itinerario } from '../../models/itinerario';
   styleUrls: ['./itinerario.component.scss']
 })
 export class ItinerarioComponent implements OnInit {
-  // Variables del formulario
   itinerarios: itinerario[] = []; // Array para guardar los resultados
-  origen: string[] = [];
-  destino: string[] = [];
-  fechaViaje: Date = new Date(); // Inicializa con la fecha actual
+  origen: string[] = [];          // Lista de orígenes
+  destino: string[] = [];         // Lista de destinos
+  fechaViajeISO: string = '';     // Formato ISO para la fecha seleccionada
+
+  origenSeleccionado: string = '';  // Para almacenar el origen seleccionado
+  destinoSeleccionado: string = ''; // Para almacenar el destino seleccionado
+  currentStep: number = 1;         // Control de pasos
+  itinerarioElegido: itinerario | null = null; // Almacena el itinerario elegido
 
   constructor(private entrafesaService: EntrafesaService) {} // Inyecta el servicio
 
@@ -21,19 +25,68 @@ export class ItinerarioComponent implements OnInit {
     this.obtenerDestino();
   }
 
-  obtenerOrigen(): void{
+  obtenerOrigen(): void {
     this.entrafesaService.getOrigen().subscribe(
       (data) => this.origen = data,
       (error) => console.error('Error al obtener orígenes: ', error)
     );
   }
 
-  obtenerDestino(): void{
+  obtenerDestino(): void {
     this.entrafesaService.getDestino().subscribe(
       (data) => this.destino = data,
       (error) => console.error('Error al obtener destinos: ', error)
-    )
+    );
   }
+
+  buscarItinerarios(): void {
+    // Formatear la fecha a formato YYYY-MM-DD
+    const fechaFormateada = new Date(this.fechaViajeISO).toISOString().split('T')[0];
+    console.log('Fecha formateada:', fechaFormateada);
+
+    this.entrafesaService.buscarItinerario(this.origenSeleccionado, this.destinoSeleccionado, fechaFormateada)
+      .subscribe(
+        (data) => {
+          this.itinerarios = data;
+          console.log('Itinerarios encontrados:', this.itinerarios);
+          if (this.itinerarios.length > 0) {
+            this.irAdelante(); // Avanzamos al siguiente paso si hay resultados
+          }
+        },
+        (error) => console.error('Error al buscar itinerarios: ', error)
+      );
+  }
+
+  irAdelante(): void {
+    this.currentStep++; // Avanza al siguiente paso
+  }
+
+  elegirItinerario(itinerario: itinerario): void {
+    this.itinerarioElegido = itinerario;
+    // Aquí podrías avanzar al siguiente paso o mostrar un mensaje
+    console.log('Itinerario elegido:', itinerario);
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   /*buscar(): void {
     if (this.origen && this.destino && this.fechaViaje) {
