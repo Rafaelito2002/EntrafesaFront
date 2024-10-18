@@ -29,23 +29,23 @@
       <form (ngSubmit)="buscarItinerarios()">
         <div class="form-row">
           <div class="box">
-            <label for="origen">Lugar de Origen</label>
+            <label for="origen"><strong>Lugar de Origen</strong></label>
             <select id="origen" [(ngModel)]="origenSeleccionado" name="origen" required>
               <option value="">Selecciona un origen</option>
               <option *ngFor="let orig of origen" [value]="orig">{{ orig }}</option>
             </select>
           </div>
-          
+
           <div class="box">
-            <label for="destino">Lugar de Destino</label>
+            <label for="destino"><strong>Lugar de Destino</strong></label>
             <select id="destino" [(ngModel)]="destinoSeleccionado" name="destino" required>
               <option value="">Selecciona un destino</option>
               <option *ngFor="let dest of destino" [value]="dest">{{ dest }}</option>
             </select>
           </div>
-          
+
           <div class="box">
-            <label for="fecha">Fecha de Ida</label>
+            <label for="fecha"><strong>Fecha de Ida</strong></label>
             <input type="date" id="fecha" [(ngModel)]="fechaViajeISO" name="fecha" required>
           </div>
 
@@ -97,10 +97,6 @@
     </div>
   </main>
 </body>
-
-
-
-
 
 
 
