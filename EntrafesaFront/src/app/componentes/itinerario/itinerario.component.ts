@@ -18,7 +18,7 @@ export class ItinerarioComponent implements OnInit {
   currentStep: number = 1;         // Control de pasos
   itinerarioElegido: itinerario | null = null; // Almacena el itinerario elegido
 
-  constructor(private entrafesaService: EntrafesaService) {} // Inyecta el servicio
+  constructor(private entrafesaService: EntrafesaService) {}
 
   ngOnInit(): void {
     this.obtenerOrigen();
@@ -40,32 +40,29 @@ export class ItinerarioComponent implements OnInit {
   }
 
   buscarItinerarios(): void {
-    // Formatear la fecha a formato YYYY-MM-DD
     const fechaFormateada = new Date(this.fechaViajeISO).toISOString().split('T')[0];
-    console.log('Fecha formateada:', fechaFormateada);
 
     this.entrafesaService.buscarItinerario(this.origenSeleccionado, this.destinoSeleccionado, fechaFormateada)
       .subscribe(
         (data) => {
           this.itinerarios = data;
-          console.log('Itinerarios encontrados:', this.itinerarios);
           if (this.itinerarios.length > 0) {
-            this.irAdelante(); // Avanzamos al siguiente paso si hay resultados
+            this.currentStep = 2;  // Avanza al paso 2 para mostrar los horarios
           }
         },
         (error) => console.error('Error al buscar itinerarios: ', error)
       );
   }
 
-  irAdelante(): void {
-    this.currentStep++; // Avanza al siguiente paso
-  }
-
   elegirItinerario(itinerario: itinerario): void {
     this.itinerarioElegido = itinerario;
-    // Aquí podrías avanzar al siguiente paso o mostrar un mensaje
     console.log('Itinerario elegido:', itinerario);
   }
+
+
+
+
+
 
 
 
