@@ -7,6 +7,9 @@ export class itinerario {
         servicio!: string; // nombre del servicio
 asientosLibres: any;
 horaLlegada: any;
+escalas: any;
+asientosNivel1: any;
+precio: any;
 
       }
       
