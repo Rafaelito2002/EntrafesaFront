@@ -86,15 +86,15 @@
             </td>
             <td>
               <div>
-                <strong>{{ itinerario.servicio }}</strong> <br> 
-                <span *ngIf="itinerario.escalas">Escalas</span>
+                <strong>{{ itinerario.bus.servicio }}</strong> <br> 
+                <span *ngIf="itinerario.ruta.tieneEscalas">Escalas</span>
+                <span *ngIf="!itinerario.ruta.tieneEscalas">No tiene escalas</span>
               </div>
             </td>
             <td>
               <div>
-                1° Nivel: {{ itinerario.asientosNivel1 }} Libres <br>
-                2° Nivel: {{ itinerario.asientosNivel1 }} Libres <br>
-                Precio: S/{{ itinerario.precio }}
+                1° Nivel: {{ itinerario.bus.cantidadAsientosPorPiso['1'] }} Libres - Precio: S/{{ itinerario.preciosPorPiso[0] }} <br>
+                2° Nivel: {{ itinerario.bus.cantidadAsientosPorPiso['2'] }} Libres - Precio: S/{{ itinerario.preciosPorPiso[1] }} <br>
               </div>
             </td>
             <td>
@@ -106,6 +106,4 @@
     </div>
   </div>
 </main>
-
-
 
