@@ -32,10 +32,10 @@
       <div class="form-row">
         <div class="box">
           <label for="origen"><strong>Lugar de Origen</strong></label>
-          <select id="origen" [(ngModel)]="origenSeleccionado" name="origen" required>
+          <select id="origen" [(ngModel)]="origenSeleccionado" name="origen" (change)="obtenerDestinoPorOrigen()" required>
             <option value="">Selecciona un origen</option>
             <option *ngFor="let orig of origen" [value]="orig">{{ orig }}</option>
-          </select>
+        </select>
         </div>
 
         <div class="box">
@@ -43,7 +43,7 @@
           <select id="destino" [(ngModel)]="destinoSeleccionado" name="destino" required>
             <option value="">Selecciona un destino</option>
             <option *ngFor="let dest of destino" [value]="dest">{{ dest }}</option>
-          </select>
+        </select>
         </div>
 
         <div class="box">
