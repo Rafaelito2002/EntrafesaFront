@@ -12,6 +12,7 @@ import { CommonModule } from '@angular/common'; // Importa CommonModule para *ng
 export class AdminCrearRutaComponent {
   selectedOrigin: any;
   selectedDestination: any;
+  routes: any;
 
   // Lista de ejemplos de datos para opciones de origen y destino
   origins = ['Trujillo', 'Lima', 'Chimbote'];
