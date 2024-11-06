@@ -1,0 +1,38 @@
+<div class="admin-container">
+    <button class="back-button">Volver a Inicio</button>
+    
+    <h1 class="header-title">Administrar Rutas</h1>
+    
+    <div class="filter-container">
+      <label for="origen">Origen</label>
+      <select id="origen" [(ngModel)]="selectedOrigin">
+        <option *ngFor="let origin of origins" [value]="origin">{{ origin }}</option>
+      </select>
+      
+      <label for="destino">Destino</label>
+      <select id="destino" [(ngModel)]="selectedDestination">
+        <option *ngFor="let destination of destinations" [value]="destination">{{ destination }}</option>
+      </select>
+      
+      <button class="filter-button" (click)="listarRutas()">Listar Rutas</button>
+    </div>
+    
+    <div class="routes-container">
+      <h2>Rutas</h2>
+      
+      <div *ngFor="let route of routes" class="route-card">
+        <div class="route-info">
+          <span class="route-origin">{{ route.origen }}</span>
+          <span class="route-destination">{{ route.destino }}</span>
+        </div>
+        
+        <div class="route-actions">
+          <button class="edit-button" (click)="editRoute(route)">Editar</button>
+          <button class="delete-button" (click)="deleteRoute(route)">Eliminar</button>
+        </div>
+      </div>
+    </div>
+    
+    <button class="add-route-button" (click)="openCreateRouteModal()">+</button>
+  </div>
+  
