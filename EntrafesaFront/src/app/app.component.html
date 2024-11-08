@@ -1,4 +1,6 @@
 <app-nav></app-nav>
-<app-menubar></app-menubar>
-<app-itinerario></app-itinerario>
+<div *ngIf="mostrarNavComponentes"> <!--CONDICIÓN PARA EL MUESTREO DE /ADMINROUTE SIN CONTAR LOS DEMÁS COMPONENTES-->
+    <app-menubar></app-menubar>
+    <app-itinerario></app-itinerario>
+</div>
 <router-outlet></router-outlet>
